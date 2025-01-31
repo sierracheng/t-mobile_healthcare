@@ -1,5 +1,5 @@
 Status,Patient Name,Gender,Age,Last Visit,Diabetes,sysBP,diaBP,Highlight
-Elevated,1125,Female,44,11-Dec-24,No,138.0 mm Hg,92.0 mm Hg,True
+Elevated,1125,Female,44,11-Dec-24,No,138.0 mm Hg,92.0 mm Hg,False
 Elevated,605,Male,62,5-May-24,No,164.0 mm Hg,88.0 mm Hg,True
 Elevated,3323,Male,57,19-Dec-24,No,177.5 mm Hg,120.0 mm Hg,True
 No-Data,3785,Female,42,28-Feb-24,No,129.0 mm Hg,81.0 mm Hg,True
@@ -97,4 +97,4 @@ Elevated,2228,Female,55,14-Jan-24,No,170.0 mm Hg,92.0 mm Hg,False
 Elevated,2556,Male,52,7-Oct-24,No,141.0 mm Hg,81.5 mm Hg,False
 No-Data,3072,Female,41,21-Dec-24,No,127.0 mm Hg,83.0 mm Hg,False
 No-Data,1810,Female,55,2-Nov-24,No,135.0 mm Hg,80.0 mm Hg,False
-Normal,168,Female,37,11-Jan-24,No,110.0 mm Hg,78.0 mm Hg,False
+Normal,168,Female,37,11-Jan-24,No,110.0 mm Hg,78.0 mm Hg,True

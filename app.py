@@ -7,10 +7,18 @@ st.set_page_config(layout="wide")
 file_path = "processed_data.csv"
 df = pd.read_csv(file_path)
 
+st.markdown("""
+    <style>
+        [data-testid="stSidebarNav"] {display: none;}
+    </style>
+""", unsafe_allow_html=True)
 
 def update_csv():
     df["Highlight"] = df.index.map(lambda i: st.session_state.highlight_status[i])
     df.to_csv(file_path, index=False)
+
+def generate_detail_link(patient_name):
+    return f"/patient_detail?patient_name={patient_name}"  # Using Streamlit page structure
 
 # Custom CSS for sidebar with icons
 st.markdown(
@@ -118,7 +126,11 @@ if not highlighted_patients.empty:
                         <span style="color: {status_color}; font-weight: bold;">{patient['Status'].upper()}</span>
                     </p>
                     <p><strong>Condition:</strong> {patient['Diabetes']}</p>
-                    <p style="font-style: italic; color: #666; cursor: pointer;">View Details</p>
+                    <p style="font-style: italic; color: #666;">
+                        <a href="{generate_detail_link(patient['Patient Name'])}" target="_self" style="text-decoration: none; color: blue; cursor: pointer;">
+                            View Details
+                        </a>
+                    </p>
                 </div>
                 """,
                 unsafe_allow_html=True,
