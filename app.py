@@ -4,7 +4,7 @@ import pandas as pd
 
 # Configure the page layout to fit the screen size
 st.set_page_config(layout="wide")
-file_path = "data_source.csv"
+file_path = "processed_data.csv"
 df = pd.read_csv(file_path)
 
 
@@ -117,7 +117,7 @@ if not highlighted_patients.empty:
                     <p><strong>Status:</strong> 
                         <span style="color: {status_color}; font-weight: bold;">{patient['Status'].upper()}</span>
                     </p>
-                    <p><strong>Condition:</strong> {patient['Diagnose']}</p>
+                    <p><strong>Condition:</strong> {patient['Diabetes']}</p>
                     <p style="font-style: italic; color: #666; cursor: pointer;">View Details</p>
                 </div>
                 """,
@@ -188,14 +188,14 @@ st.markdown(
 st.markdown("## Patients List")
 
 # Create column layout for headers
-header_cols = st.columns([2, 2, 1, 1, 2, 2, 2, 1])
-headers = ["Status", "Patient Name", "Age", "Last Visit", "Diagnosis", "Average BP", "Reminder", "Highlight"]
+header_cols = st.columns([1.5, 1, 1, 0.5, 1.2, 1, 1.5, 1.5, 2, 1])
+headers = ["Status", "Patient Name", "Gender", "Age", "Last Visit", "Diabetes", "sysBP", "diaBP", "Reminder", "Highlight"]
 for col, header in zip(header_cols, headers):
     col.markdown(f"**{header}**")
 
 # Iterate through patient data and display rows
 for i in range(len(df)):
-    cols = st.columns([2, 2, 1, 1, 2, 2, 2, 1])  # Define column layout per row
+    cols = st.columns([1.5, 1, 1, 0.5, 1.2, 1, 1.5, 1.5, 2, 1])  # Define column layout per row
 
     # Status Badge
     status = df.loc[i, "Status"]
@@ -209,22 +209,24 @@ for i in range(len(df)):
 
     # Patient details
     cols[1].markdown(df.loc[i, "Patient Name"])
-    cols[2].markdown(df.loc[i, "Age"])
-    cols[3].markdown(df.loc[i, "Last Visit"])
-    cols[4].markdown(df.loc[i, "Diagnose"])
-    cols[5].markdown(df.loc[i, "Average BP"])
+    cols[2].markdown(df.loc[i, "Gender"])
+    cols[3].markdown(df.loc[i, "Age"])
+    cols[4].markdown(df.loc[i, "Last Visit"])
+    cols[5].markdown(df.loc[i, "Diabetes"])
+    cols[6].markdown(df.loc[i, "sysBP"])
+    cols[7].markdown(df.loc[i, "diaBP"])
 
     # Reminder Button (inside the column)
     if not st.session_state.reminder_status[i]:
-        if cols[6].button("Send Reminder", key=f"reminder_{i}", help="Click to send a reminder"):
+        if cols[8].button("Send Reminder", key=f"reminder_{i}", help="Click to send a reminder"):
             st.session_state.reminder_status[i] = True
             st.rerun()  # Refresh UI to update button
     else:
-        cols[6].markdown('<span style="color: gray;">Sent Successfully</span>', unsafe_allow_html=True)
+        cols[8].markdown('<span style="color: gray;">Sent Successfully</span>', unsafe_allow_html=True)
 
     # Highlight Star Toggle (inside the column)
     star_symbol = "⭐" if st.session_state.highlight_status[i] else "☆"
-    if cols[7].button(star_symbol, key=f"highlight_{i}"):
+    if cols[9].button(star_symbol, key=f"highlight_{i}"):
         st.session_state.highlight_status[i] = not st.session_state.highlight_status[i]
         update_csv()  # Update CSV immediately
         st.rerun()  # Refresh UI to update the star
